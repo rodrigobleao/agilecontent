@@ -9,6 +9,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 16px;
-  height: 52px;
+  gap: var(--header-items-gap);
+  height: var(--header-height);
 }

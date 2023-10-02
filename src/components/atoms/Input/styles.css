@@ -6,14 +6,24 @@
   padding: 5px 14px;
   border-radius: 24px;
   border: 1px solid var(--medium-gray);
+  max-width: 80vw;
+}
+
+.home-input {
+  width: 582px;
   min-height: 36px;
-  max-width: 80%;
+}
+
+.header-input {
+  width: 380px;
 }
 
 .styled-text-input {
   border: none;
   overflow: hidden;
   flex: 1;
+  font-size: 16px;
+  color: var(--text-color);
 }
 
 input:focus {

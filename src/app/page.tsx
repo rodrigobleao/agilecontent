@@ -5,21 +5,22 @@ import { useState } from 'react'
 import InputComponent from '@/components/atoms/Input'
 import ImageComponent from '@/components/atoms/Image'
 import Button from '@/components/atoms/Button'
-import { handleInputAction } from '@/utils/inputAction'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [searchInput, setSearchInput] = useState('')
+  const router = useRouter()
 
-  const search = () =>
-    handleInputAction(searchInput, () => console.log('teste'))
+  const search = () => {
+    router.push(`/search?q=${searchInput}`)
+  }
 
   return (
     <main>
       <div className="home">
         <ImageComponent src="/google.svg" width={272} height={92} />
         <InputComponent
-          width={582}
-          startIcon="search"
+          variant="home-input"
           value={searchInput}
           onChangeText={setSearchInput}
           onSearch={() => search()}
@@ -27,7 +28,7 @@ export default function Home() {
         <Button
           label="Buscar"
           onClick={() => search()}
-          disabled={!searchInput.trim()}
+          disabled={!searchInput}
         />
       </div>
     </main>

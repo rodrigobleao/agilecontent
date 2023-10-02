@@ -3,6 +3,19 @@
   border-bottom: 2px solid var(--light-gray);
 }
 
+.content-on-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--header-items-gap);
+  height: var(--header-height) -8px;
+  padding-bottom: 8px;
+}
+
+.left-items {
+  max-width: 70vw;
+}
+
 .apps-icon-container {
   width: 36px;
   height: 36px;

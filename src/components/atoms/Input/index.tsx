@@ -5,7 +5,7 @@ import { ThemeColors } from '@/types/colors'
 
 interface InputProps {
   disabled?: boolean
-  width?: number
+  variant: 'home-input' | 'header-input'
   startIcon?: IconNames
   onSearch?: () => void
   iconColor?: ThemeColors
@@ -14,19 +14,19 @@ interface InputProps {
   onChangeText: (value: string) => void
 }
 
-const Input: FC<InputProps> = ({ iconColor = 'gray', ...props }) => {
+const Input: FC<InputProps> = ({
+  startIcon = 'search',
+  iconColor = 'gray',
+  ...props
+}) => {
   const handleClearText = () => {
     props.onChangeText('')
   }
 
   return (
-    <div className="input-container" style={{ width: props.width }}>
-      {props.startIcon && (
-        <Icon
-          name={props.startIcon}
-          color={iconColor}
-          onClick={props.onSearch}
-        />
+    <div className={`input-container ${props.variant}`}>
+      {startIcon && (
+        <Icon name={startIcon} color={iconColor} onClick={props.onSearch} />
       )}
 
       <input
