@@ -8,7 +8,7 @@
   flex-direction: row;
   align-items: center;
   gap: var(--header-items-gap);
-  height: var(--header-height) -8px;
+  height: calc(var(--header-height) -8px);
   padding-bottom: 8px;
 }
 

@@ -1,0 +1,5 @@
+.title {
+  color: var(--blue);
+  margin: 8px 0px;
+  cursor: pointer;
+}

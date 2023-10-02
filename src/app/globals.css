@@ -13,8 +13,9 @@ body {
   --medium-gray: #d9d9d9;
   --light-gray: #f2f2f2;
   --blue: #1a0dab;
+  --purple: #681da8;
   --text-color: #000000dd;
 
   --header-items-gap: 16px;
-  --header-height: 60px;
+  --edge-layout-height: 60px;
 }

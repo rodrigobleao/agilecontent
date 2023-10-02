@@ -10,5 +10,5 @@
   flex-direction: row;
   align-items: center;
   gap: var(--header-items-gap);
-  height: var(--header-height);
+  height: var(--edge-layout-height);
 }
