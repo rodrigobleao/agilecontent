@@ -1,3 +1,17 @@
+:root {
+  --white: #ffffff;
+  --black: #202124;
+  --gray: #5f6368;
+  --medium-gray: #d9d9d9;
+  --light-gray: #f2f2f2;
+  --blue: #1a0dab;
+  --text-color: #4d5156;
+
+  --header-items-gap: 16px;
+  --edge-layout-height: 60px;
+  --header-border-size: 2px;
+}
+
 html,
 body {
   margin: 0px;
@@ -15,16 +29,17 @@ body {
   );
 }
 
-:root {
-  --white: #ffffff;
-  --black: #202124;
-  --gray: #5f6368;
-  --medium-gray: #d9d9d9;
-  --light-gray: #f2f2f2;
-  --blue: #1a0dab;
-  --text-color: #4d5156;
+.shimmer-skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
 
-  --header-items-gap: 16px;
-  --edge-layout-height: 60px;
-  --header-border-size: 2px;
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

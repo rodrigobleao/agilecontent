@@ -3,6 +3,7 @@
 import './styles.css'
 import Image from 'next/image'
 import { FC, useEffect, useState } from 'react'
+import ImageSkeleton from './ImageSkeleton'
 
 interface ImageProps {
   src: string
@@ -55,7 +56,7 @@ const ImageComponent: FC<ImageProps> = ({
         }}
         {...props}
       />
-      {showLoadingIndicator && isImageHidden && <span>Loading...</span>}
+      {showLoadingIndicator && isImageHidden && <ImageSkeleton />}
     </div>
   )
 }

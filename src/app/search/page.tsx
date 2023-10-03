@@ -10,6 +10,7 @@ import ItemDetails from '@/components/molecules/ItemDetails'
 import fakerData from '@/services/faker'
 import { FetchedItem } from '@/types/FetchedItem'
 import { randomDelay } from '@/utils'
+import SearchItemSkeleton from '@/components/molecules/SearchItem/SearchItemSkeleton'
 
 function Search() {
   const { loading } = useStore()
@@ -46,25 +47,31 @@ function Search() {
   }, [])
 
   const handleSelectItem = async (data: FetchedItem) => {
-    setIsDetailsLoading(true)
-    setDetails(data)
-    await randomDelay()
-    setIsDetailsLoading(false)
+    if (data !== details) {
+      setIsDetailsLoading(true)
+      setDetails(data)
+      await randomDelay()
+      setIsDetailsLoading(false)
+    }
   }
 
   return (
     <div className="search-container full-height">
       <div className="search-content">
         <div className="search-items">
-          {searchData.map((data, index) => (
-            <SearchItem
-              key={index}
-              url={data.url}
-              title={data.title}
-              description={data.description}
-              onClick={() => handleSelectItem(data)}
-            />
-          ))}
+          {searchData.length > 0
+            ? searchData.map((data, index) => (
+                <SearchItem
+                  key={index}
+                  url={data.url}
+                  title={data.title}
+                  description={data.description}
+                  onClick={() => handleSelectItem(data)}
+                />
+              ))
+            : [...new Array(8)].map((_, index) => (
+                <SearchItemSkeleton key={index} />
+              ))}
         </div>
         {details && (
           <div className="search-detail">

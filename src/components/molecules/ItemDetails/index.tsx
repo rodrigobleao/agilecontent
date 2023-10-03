@@ -4,6 +4,7 @@ import './styles.css'
 import ImageComponent from '@/components/atoms/Image'
 import { FC } from 'react'
 import SearchItem from '../SearchItem'
+import ItemDetailsSkeleton from './ItemDetailsSkeleton'
 
 interface ItemDetailsProps {
   image: string
@@ -19,7 +20,7 @@ const ItemDetails: FC<ItemDetailsProps> = (props) => {
   return (
     <div className="item-details">
       {isLoadingNewItem ? (
-        <span>Loading...</span>
+        <ItemDetailsSkeleton />
       ) : (
         <>
           <div className="image-detail-container">
