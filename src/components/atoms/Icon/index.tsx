@@ -1,7 +1,7 @@
 import './styles.css'
 import { FC } from 'react'
 import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai'
-import { ThemeColors } from '../../../types/colors'
+import { ThemeColors } from '../../../types/Colors'
 import SvgIcon from './SvgIcons'
 
 export type ReactIconNames = 'search' | 'x'

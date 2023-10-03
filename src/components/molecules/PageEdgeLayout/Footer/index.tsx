@@ -1,6 +1,6 @@
 import './styles.css'
 import { FC } from 'react'
-import PageEdgeLayout from '../PageEdgeLayout'
+import PageEdgeLayout from '../Base'
 
 interface FooterProps {}
 

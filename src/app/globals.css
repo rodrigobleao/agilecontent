@@ -1,16 +1,18 @@
 html,
 body {
   margin: 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
   color: var(--text-color);
 }
 
 .text-bold {
   color: var(--black);
   font-weight: bold;
+}
+
+.full-height {
+  min-height: calc(
+    100vh - 2 * var(--edge-layout-height) - var(--header-border-size)
+  );
 }
 
 :root {
@@ -20,9 +22,9 @@ body {
   --medium-gray: #d9d9d9;
   --light-gray: #f2f2f2;
   --blue: #1a0dab;
-  --purple: #681da8;
   --text-color: #4d5156;
 
   --header-items-gap: 16px;
   --edge-layout-height: 60px;
+  --header-border-size: 2px;
 }

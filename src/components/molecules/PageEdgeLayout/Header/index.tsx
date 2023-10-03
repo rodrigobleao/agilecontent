@@ -2,13 +2,14 @@
 
 import './styles.css'
 import { FC, useEffect, useState } from 'react'
-import PageEdgeLayout from '../PageEdgeLayout'
+import PageEdgeLayout from '../Base'
 import ImageComponent from '@/components/atoms/Image'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import { useStore } from '@/hooks/useStore'
 import { observer } from 'mobx-react'
 import { usePathname, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const Header: FC = () => {
   const [searchValue, setSearchValue] = useState('')
@@ -16,10 +17,19 @@ const Header: FC = () => {
   const page = usePathname()
   const searchParams = useSearchParams()
   const query = searchParams.get('q')
+  const router = useRouter()
 
   useEffect(() => {
     setSearchValue(query || '')
   }, [query])
+
+  const pushToHome = () => {
+    router.push(`/`)
+  }
+
+  const pushToSearch = () => {
+    router.push(`/search?q=${searchValue}`)
+  }
 
   const leftItems =
     page === '/' ? (
@@ -28,11 +38,16 @@ const Header: FC = () => {
       </span>
     ) : (
       <div className="content-on-search left-items">
-        <ImageComponent src="/google.svg" width={90} />
+        <ImageComponent
+          src="/google.svg"
+          width={90}
+          onclick={() => pushToHome()}
+        />
         <Input
           value={searchValue}
           onChangeText={setSearchValue}
           variant="header-input"
+          onSearch={() => pushToSearch()}
         />
       </div>
     )
@@ -49,11 +64,13 @@ const Header: FC = () => {
     </>
   )
 
-  const rightItems = loading.isLoading() ? null : page === '/' ? (
-    menuIconAndUserImage
-  ) : (
-    <div className={'content-on-search'}>{menuIconAndUserImage}</div>
-  )
+  const rightItems =
+    !loading.isLoading() &&
+    (page === '/' ? (
+      menuIconAndUserImage
+    ) : (
+      <div className={'content-on-search'}>{menuIconAndUserImage}</div>
+    ))
 
   return (
     <div className={'header'}>

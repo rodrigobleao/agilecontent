@@ -1,3 +1,4 @@
 .footer {
   background-color: var(--light-gray);
+  justify-self: end;
 }

@@ -1,4 +1,4 @@
-import { ThemeColors } from '@/types/colors'
+import { ThemeColors } from '@/types/Colors'
 import { SvgIconNames } from '..'
 import { FC } from 'react'
 

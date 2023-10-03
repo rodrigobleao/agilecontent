@@ -1,52 +1,82 @@
 'use client'
 
 import './styles.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useStore } from '@/hooks/useStore'
 import { observer } from 'mobx-react'
-// import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import SearchItem from '@/components/molecules/SearchItem'
 import ItemDetails from '@/components/molecules/ItemDetails'
+import fakerData from '@/services/faker'
+import { FetchedItem } from '@/types/FetchedItem'
+import { randomDelay } from '@/utils'
 
 function Search() {
   const { loading } = useStore()
-  // const searchParams = useSearchParams()
-  // const query = searchParams.get('q')
+  const [details, setDetails] = useState<FetchedItem>()
+  const [isDetailsLoading, setIsDetailsLoading] = useState<boolean>(true)
+  const [searchData, setSearchData] = useState<FetchedItem[]>([])
+  const searchParams = useSearchParams()
+  const query = searchParams.get('q')
 
-  function loadingOffAfter3Seconds() {
-    setTimeout(() => {
-      loading.stopLoading()
-    }, 3000)
+  const filterData = (filter: string, data: FetchedItem[]) => {
+    const filteredData = data.filter(
+      (item) =>
+        item.type.toLowerCase().includes(filter.toLowerCase()) ||
+        item.title.toLowerCase().includes(filter.toLowerCase())
+    )
+
+    return filteredData
   }
 
   useEffect(() => {
-    loading.switchOnLoading()
-    loadingOffAfter3Seconds()
+    const getSearchData = async () => {
+      loading.switchOnLoading()
+
+      let fetchedData = await fakerData()
+
+      if (query) fetchedData = filterData(query, fetchedData)
+
+      setSearchData(fetchedData)
+
+      loading.stopLoading()
+    }
+
+    getSearchData()
   }, [])
 
+  const handleSelectItem = async (data: FetchedItem) => {
+    setIsDetailsLoading(true)
+    setDetails(data)
+    await randomDelay()
+    setIsDetailsLoading(false)
+  }
+
   return (
-    <div className="search-container">
+    <div className="search-container full-height">
       <div className="search-content">
         <div className="search-items">
-          {Array.from({ length: 10 }, (_, index) => (
+          {searchData.map((data, index) => (
             <SearchItem
               key={index}
-              url="http://teste.com"
-              title="Bem-te-vi"
-              description="O bem-te-vi ou grande-kiskadi é uma ave passeriforme da família dos tiranídeos de nome científico Pitangus sulphuratus. A espécie é, ainda, conhecida pelos O bem-te-vi ou grande-kiskadi é uma ave passeriforme da família dos tiranídeos de nome científico Pitangus sulphuratus. A espécie é, ainda, conhecida pelos"
-              onClick={() => console.log('bem te vi')}
+              url={data.url}
+              title={data.title}
+              description={data.description}
+              onClick={() => handleSelectItem(data)}
             />
           ))}
         </div>
-        <div className="search-detail">
-          {' '}
-          <ItemDetails
-            url="http://teste.com"
-            title="Bem-te-vi"
-            description="O bem-te-vi ou grande-kiskadi é uma ave passeriforme da família dos tiranídeos de nome científico Pitangus sulphuratus. A espécie é, ainda, conhecida pelos O bem-te-vi ou grande-kiskadi é uma ave passeriforme da família dos tiranídeos de nome científico Pitangus sulphuratus. A espécie é, ainda, conhecida pelos"
-            image="/agile-content.png"
-          />
-        </div>
+        {details && (
+          <div className="search-detail">
+            <ItemDetails
+              url={details.url}
+              title={details.title}
+              description={details.description}
+              image={details.image}
+              isLoadingNewItem={isDetailsLoading}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

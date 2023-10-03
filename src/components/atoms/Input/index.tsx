@@ -1,7 +1,7 @@
 import './styles.css'
 import { FC } from 'react'
 import Icon, { IconNames } from '../Icon'
-import { ThemeColors } from '@/types/colors'
+import { ThemeColors } from '@/types/Colors'
 
 interface InputProps {
   disabled?: boolean
