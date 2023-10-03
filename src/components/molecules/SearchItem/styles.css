@@ -1,5 +1,9 @@
-.title {
-  color: var(--blue);
+.item-title {
   margin: 8px 0px;
+}
+
+.link {
+  color: var(--blue);
   cursor: pointer;
+  font-weight: 500;
 }

@@ -23,7 +23,7 @@
   overflow: hidden;
   flex: 1;
   font-size: 16px;
-  color: var(--text-color);
+  color: var(--black);
 }
 
 input:focus {

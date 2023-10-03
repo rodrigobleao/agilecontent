@@ -24,11 +24,11 @@ const Header: FC = () => {
   const leftItems =
     page === '/' ? (
       <span>
-        <strong>Agile Content</strong> Frontend test
+        <strong className="text-bold">Agile Content</strong> Frontend test
       </span>
     ) : (
       <div className="content-on-search left-items">
-        <ImageComponent src="/google.svg" width={90} height={31} />
+        <ImageComponent src="/google.svg" width={90} />
         <Input
           value={searchValue}
           onChangeText={setSearchValue}
@@ -45,7 +45,7 @@ const Header: FC = () => {
         </div>
         <div className="apps-icon-bg"></div>
       </div>
-      <ImageComponent src="/agile-content.png" width={30} height={30} round />
+      <ImageComponent src="/agile-content.png" width={30} round />
     </>
   )
 

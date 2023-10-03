@@ -1,20 +1,32 @@
-.search-content {
+.search-container {
   display: flex;
-  flex-direction: row;
-  height: 100%;
-}
-
-.search-result {
-  display: flex;
-  flex-direction: column;
-  max-width: 60vw;
-  margin: 36px 0px;
-  gap: 24px;
+  justify-content: center;
   padding-left: 10vw;
 }
 
+.search-content {
+  display: flex;
+  flex-direction: row;
+  max-width: 1024px;
+  gap: 76px;
+  margin: 36px 0px;
+}
+
+.search-items {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 @media screen and (min-width: 1200px) {
-  .search-result {
+  .search-container {
     padding-left: 120px;
+    justify-content: start;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search-container {
+    padding-left: 5vh;
   }
 }

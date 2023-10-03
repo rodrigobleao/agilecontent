@@ -5,16 +5,23 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  color: var(--text-color);
+}
+
+.text-bold {
+  color: var(--black);
+  font-weight: bold;
 }
 
 :root {
   --white: #ffffff;
+  --black: #202124;
   --gray: #5f6368;
   --medium-gray: #d9d9d9;
   --light-gray: #f2f2f2;
   --blue: #1a0dab;
   --purple: #681da8;
-  --text-color: #000000dd;
+  --text-color: #4d5156;
 
   --header-items-gap: 16px;
   --edge-layout-height: 60px;

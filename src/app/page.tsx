@@ -16,21 +16,15 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <div className="home">
-        <ImageComponent src="/google.svg" width={272} height={92} />
-        <InputComponent
-          variant="home-input"
-          value={searchInput}
-          onChangeText={setSearchInput}
-          onSearch={() => search()}
-        />
-        <Button
-          label="Buscar"
-          onClick={() => search()}
-          disabled={!searchInput}
-        />
-      </div>
-    </main>
+    <div className="home">
+      <ImageComponent src="/google.svg" width={272} />
+      <InputComponent
+        variant="home-input"
+        value={searchInput}
+        onChangeText={setSearchInput}
+        onSearch={() => search()}
+      />
+      <Button label="Buscar" onClick={() => search()} disabled={!searchInput} />
+    </div>
   )
 }

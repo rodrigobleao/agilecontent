@@ -8,14 +8,22 @@ interface ImageProps {
   round?: boolean
 }
 
-const ImageComponent: FC<ImageProps> = ({ round, ...props }) => {
+const ImageComponent: FC<ImageProps> = ({ width, height, round, ...props }) => {
   const borderRadius = round ? '50%' : '0'
+  const imageWidth = width || height ? width : '100%'
 
   return (
     <Image
       alt={`IMAGE: ${props.src}`}
       draggable={false}
-      style={{ borderRadius: borderRadius }}
+      width={0}
+      height={0}
+      sizes="100vw"
+      style={{
+        borderRadius,
+        width: imageWidth || 'auto',
+        height: height || 'auto',
+      }}
       {...props}
     />
   )
