@@ -35,12 +35,14 @@ function Search() {
     const getSearchData = async () => {
       loading.switchOnLoading()
 
-      let fetchedData = await fakerData()
+      if (!query) setSearchData([])
+      else {
+        let fetchedData = await fakerData()
 
-      if (query) fetchedData = filterData(query, fetchedData)
+        fetchedData = filterData(query, fetchedData)
 
-      setSearchData(fetchedData)
-
+        setSearchData(fetchedData)
+      }
       loading.stopLoading()
     }
 
@@ -61,23 +63,44 @@ function Search() {
     setIsDetailsVisible((prev) => !prev)
   }
 
+  const NoResults = () => (
+    <div className="no-results">
+      {query && (
+        <span>
+          No results found for <strong>{`'${query}'`}</strong>
+        </span>
+      )}
+      <span>
+        Try looking for:{' '}
+        <strong>
+          insect, fish, horse, crocodilia, bear, cetacean, cow, lion, rabbit,
+          cat, snake, dog, bird.
+        </strong>
+      </span>
+    </div>
+  )
+
   return (
     <div className="search-container full-height">
       <div className="search-content">
         <div className="search-items">
-          {searchData.length > 0
-            ? searchData.map((data, index) => (
-                <SearchItem
-                  key={index}
-                  url={data.url}
-                  title={data.title}
-                  description={data.description}
-                  onClick={() => handleSelectItem(data)}
-                />
-              ))
-            : [...new Array(8)].map((_, index) => (
-                <SearchItemSkeleton key={index} />
-              ))}
+          {loading.isLoading() ? (
+            [...new Array(8)].map((_, index) => (
+              <SearchItemSkeleton key={index} />
+            ))
+          ) : searchData.length > 0 ? (
+            searchData.map((data, index) => (
+              <SearchItem
+                key={index}
+                url={data.url}
+                title={data.title}
+                description={data.description}
+                onClick={() => handleSelectItem(data)}
+              />
+            ))
+          ) : (
+            <NoResults />
+          )}
         </div>
         {details && isDetailsVisible && (
           <div className="search-detail">

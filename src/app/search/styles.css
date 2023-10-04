@@ -19,10 +19,27 @@
   width: 80%;
 }
 
+.no-results {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 8px;
+}
+
 @media screen and (min-width: 1200px) {
   .search-container {
     padding-left: 120px;
     justify-content: start;
+  }
+  .no-results {
+    padding-left: 20vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .no-results {
+    margin-left: -20vw;
+    width: max-content;
   }
 }
 
