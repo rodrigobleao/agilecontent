@@ -50,8 +50,8 @@ function Search() {
   }, [])
 
   const handleSelectItem = async (data: FetchedItem) => {
-    handleDetailsVisibility()
-    if (data !== details) {
+    if (data === details) handleDetailsVisibility()
+    else {
       setIsDetailsLoading(true)
       setDetails(data)
       await randomDelay()
