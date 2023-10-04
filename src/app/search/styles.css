@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: row;
   max-width: 1200px;
-  gap: 76px;
+  gap: 54px;
   margin: 36px 0px;
 }
 
@@ -28,6 +28,6 @@
 
 @media screen and (max-width: 480px) {
   .search-container {
-    padding-left: 5vh;
+    padding-left: 5vw;
   }
 }

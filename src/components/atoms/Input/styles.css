@@ -29,3 +29,9 @@
 input:focus {
   outline: none;
 }
+
+@media screen and (max-width: 480px) {
+  .header-input {
+    width: 50%;
+  }
+}

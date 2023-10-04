@@ -15,6 +15,7 @@ import SearchItemSkeleton from '@/components/molecules/SearchItem/SearchItemSkel
 function Search() {
   const { loading } = useStore()
   const [details, setDetails] = useState<FetchedItem>()
+  const [isDetailsVisible, setIsDetailsVisible] = useState<boolean>(false)
   const [isDetailsLoading, setIsDetailsLoading] = useState<boolean>(true)
   const [searchData, setSearchData] = useState<FetchedItem[]>([])
   const searchParams = useSearchParams()
@@ -47,12 +48,17 @@ function Search() {
   }, [])
 
   const handleSelectItem = async (data: FetchedItem) => {
+    handleDetailsVisibility()
     if (data !== details) {
       setIsDetailsLoading(true)
       setDetails(data)
       await randomDelay()
       setIsDetailsLoading(false)
     }
+  }
+
+  const handleDetailsVisibility = () => {
+    setIsDetailsVisible((prev) => !prev)
   }
 
   return (
@@ -73,7 +79,7 @@ function Search() {
                 <SearchItemSkeleton key={index} />
               ))}
         </div>
-        {details && (
+        {details && isDetailsVisible && (
           <div className="search-detail">
             <ItemDetails
               url={details.url}
@@ -81,6 +87,7 @@ function Search() {
               description={details.description}
               image={details.image}
               isLoadingNewItem={isDetailsLoading}
+              onClose={() => handleDetailsVisibility()}
             />
           </div>
         )}

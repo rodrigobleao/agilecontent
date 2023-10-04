@@ -12,24 +12,28 @@ interface ItemDetailsProps {
   title: string
   description: string
   isLoadingNewItem: boolean
+  onClose: () => void // Função para fechar o modal
 }
 
 const ItemDetails: FC<ItemDetailsProps> = (props) => {
-  const { image, isLoadingNewItem, ...searchItemProps } = props
+  const { image, isLoadingNewItem, onClose, ...searchItemProps } = props
 
   return (
-    <div className="item-details">
-      {isLoadingNewItem ? (
-        <ItemDetailsSkeleton />
-      ) : (
-        <>
-          <div className="image-detail-container">
-            <ImageComponent src={image} showLoadingIndicator />
-          </div>
-          <SearchItem {...searchItemProps} />
-        </>
-      )}
-    </div>
+    <>
+      <div className="modal-overlay" onClick={onClose}></div>
+      <div className="detail-content">
+        {isLoadingNewItem ? (
+          <ItemDetailsSkeleton />
+        ) : (
+          <>
+            <div className="image-detail-container">
+              <ImageComponent src={image} showLoadingIndicator />
+            </div>
+            <SearchItem {...searchItemProps} />
+          </>
+        )}
+      </div>
+    </>
   )
 }
 
