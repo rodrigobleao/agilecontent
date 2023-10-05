@@ -15,13 +15,12 @@ const Header: FC = () => {
   const [searchValue, setSearchValue] = useState('')
   const { loading } = useStore()
   const page = usePathname()
-  const searchParams = useSearchParams()
-  const query = searchParams.get('q')
+  const searchParam = useSearchParams().get('q')
   const router = useRouter()
 
   useEffect(() => {
-    setSearchValue(query || '')
-  }, [query])
+    setSearchValue(searchParam || '')
+  }, [searchParam])
 
   const pushToHome = () => {
     router.push(`/`)

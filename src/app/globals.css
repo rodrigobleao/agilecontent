@@ -19,15 +19,20 @@ body {
   color: var(--text-color);
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
 .text-bold {
   color: var(--black);
   font-weight: bold;
-}
-
-.full-height {
-  min-height: calc(
-    100vh - 2 * var(--edge-layout-height) - var(--header-border-size)
-  );
 }
 
 .shimmer-skeleton {

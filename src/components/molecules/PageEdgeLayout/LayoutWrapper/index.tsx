@@ -13,7 +13,7 @@ export default function LayoutWrapper({
   return (
     <Provider rootStore={store}>
       <Header />
-      {children}
+      <main>{children}</main>
       <Footer />
     </Provider>
   )

@@ -1,9 +1,3 @@
-.search-container {
-  display: flex;
-  justify-content: center;
-  padding-left: 10vw;
-}
-
 .search-content {
   display: flex;
   flex-direction: row;
@@ -17,34 +11,23 @@
   flex-direction: column;
   gap: 30px;
   width: 80%;
+  padding-left: calc(10vw);
 }
 
 .no-results {
   display: flex;
   flex-direction: column;
-  width: fit-content;
   gap: 8px;
 }
 
 @media screen and (min-width: 1200px) {
-  .search-container {
+  .search-items {
     padding-left: 120px;
-    justify-content: start;
-  }
-  .no-results {
-    padding-left: 20vw;
   }
 }
 
-@media screen and (min-width: 800px) {
-  .no-results {
-    margin-left: -20vw;
-    width: max-content;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .search-container {
+@media screen and (max-width: 576px) {
+  .search-items {
     padding-left: 5vw;
   }
 }

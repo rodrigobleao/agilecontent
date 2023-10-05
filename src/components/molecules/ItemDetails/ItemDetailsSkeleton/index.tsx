@@ -1,18 +1,18 @@
-import './styles.css'
 import ImageSkeleton from '@/components/atoms/Image/ImageSkeleton'
 import { FC } from 'react'
 import SearchItemSkeleton from '../../SearchItem/SearchItemSkeleton'
+import { getSkeletonRandomLines } from '@/utils'
 
 const ItemDetailsSkeleton: FC = () => {
   return (
-    <div className="item-detail-skeleton-container">
-      <div className="image-detail-skeleton">
+    <>
+      <div className="image-detail-container">
         <ImageSkeleton />
       </div>
-      <div className="text-detail-skeleton">
-        <SearchItemSkeleton />
-      </div>
-    </div>
+      <SearchItemSkeleton
+        descriptionLines={getSkeletonRandomLines({ variant: 'details' })}
+      />
+    </>
   )
 }
 

@@ -24,9 +24,15 @@ const fakerData: FetchedItem[] = [...new Array(100)].map((_, index) => {
   }
 })
 
-const fetchFakerData = async () => {
+const fetchFakerData = async (searchParam: string) => {
   await randomDelay()
-  return fakerData
+  const filteredData = fakerData.filter(
+    (item) =>
+      item.type.toLowerCase().includes(searchParam.toLowerCase()) ||
+      item.title.toLowerCase().includes(searchParam.toLowerCase())
+  )
+
+  return filteredData
 }
 
 export default fetchFakerData

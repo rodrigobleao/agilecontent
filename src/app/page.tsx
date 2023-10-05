@@ -16,7 +16,7 @@ export default function Home() {
   }
 
   return (
-    <div className="home full-height">
+    <div className="home">
       <ImageComponent src="/google.svg" width={272} />
       <InputComponent
         variant="home-input"

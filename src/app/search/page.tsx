@@ -2,44 +2,31 @@
 
 import './styles.css'
 import { useEffect, useState } from 'react'
-import { useStore } from '@/hooks/useStore'
 import { observer } from 'mobx-react'
 import { useSearchParams } from 'next/navigation'
+import { useStore } from '@/hooks/useStore'
+import { FetchedItem } from '@/types/FetchedItem'
+import { getSkeletonRandomLines, randomDelay } from '@/utils'
+import fakerData from '@/services/faker'
 import SearchItem from '@/components/molecules/SearchItem'
 import ItemDetails from '@/components/molecules/ItemDetails'
-import fakerData from '@/services/faker'
-import { FetchedItem } from '@/types/FetchedItem'
-import { randomDelay } from '@/utils'
 import SearchItemSkeleton from '@/components/molecules/SearchItem/SearchItemSkeleton'
+import NoResults from './noResults'
 
 function Search() {
   const { loading } = useStore()
   const [details, setDetails] = useState<FetchedItem>()
   const [isDetailsVisible, setIsDetailsVisible] = useState<boolean>(false)
-  const [isDetailsLoading, setIsDetailsLoading] = useState<boolean>(true)
   const [searchData, setSearchData] = useState<FetchedItem[]>([])
-  const searchParams = useSearchParams()
-  const query = searchParams.get('q')
-
-  const filterData = (filter: string, data: FetchedItem[]) => {
-    const filteredData = data.filter(
-      (item) =>
-        item.type.toLowerCase().includes(filter.toLowerCase()) ||
-        item.title.toLowerCase().includes(filter.toLowerCase())
-    )
-
-    return filteredData
-  }
+  const searchParam = useSearchParams().get('q')
 
   useEffect(() => {
     const getSearchData = async () => {
       loading.switchOnLoading()
 
-      if (!query) setSearchData([])
+      if (!searchParam) setSearchData([])
       else {
-        let fetchedData = await fakerData()
-
-        fetchedData = filterData(query, fetchedData)
+        const fetchedData = await fakerData(searchParam)
 
         setSearchData(fetchedData)
       }
@@ -52,10 +39,10 @@ function Search() {
   const handleSelectItem = async (data: FetchedItem) => {
     if (data === details) handleDetailsVisibility()
     else {
-      setIsDetailsLoading(true)
-      setDetails(data)
+      setDetails(undefined)
+      if (!isDetailsVisible) handleDetailsVisibility()
       await randomDelay()
-      setIsDetailsLoading(false)
+      setDetails(data)
     }
   }
 
@@ -63,58 +50,41 @@ function Search() {
     setIsDetailsVisible((prev) => !prev)
   }
 
-  const NoResults = () => (
-    <div className="no-results">
-      {query && (
-        <span>
-          No results found for <strong>{`'${query}'`}</strong>
-        </span>
-      )}
-      <span>
-        Try looking for:{' '}
-        <strong>
-          insect, fish, horse, crocodilia, bear, cetacean, cow, lion, rabbit,
-          cat, snake, dog, bird.
-        </strong>
-      </span>
-    </div>
-  )
-
   return (
-    <div className="search-container full-height">
-      <div className="search-content">
-        <div className="search-items">
-          {loading.isLoading() ? (
-            [...new Array(8)].map((_, index) => (
-              <SearchItemSkeleton key={index} />
-            ))
-          ) : searchData.length > 0 ? (
-            searchData.map((data, index) => (
-              <SearchItem
-                key={index}
-                url={data.url}
-                title={data.title}
-                description={data.description}
-                onClick={() => handleSelectItem(data)}
-              />
-            ))
-          ) : (
-            <NoResults />
-          )}
-        </div>
-        {details && isDetailsVisible && (
-          <div className="search-detail">
-            <ItemDetails
-              url={details.url}
-              title={details.title}
-              description={details.description}
-              image={details.image}
-              isLoadingNewItem={isDetailsLoading}
-              onClose={() => handleDetailsVisibility()}
+    <div className="search-content">
+      <div className="search-items">
+        {loading.isLoading() ? (
+          [...Array(8)].map((_, index) => (
+            <SearchItemSkeleton
+              key={index}
+              descriptionLines={getSkeletonRandomLines()}
             />
-          </div>
+          ))
+        ) : searchData.length > 0 ? (
+          searchData.map((data, index) => (
+            <SearchItem
+              key={index}
+              url={data.url}
+              title={data.title}
+              description={data.description}
+              onClick={() => handleSelectItem(data)}
+            />
+          ))
+        ) : (
+          <NoResults searchParam={searchParam} />
         )}
       </div>
+      {isDetailsVisible && (
+        <div className="search-detail">
+          <ItemDetails
+            url={details?.url}
+            title={details?.title}
+            description={details?.description}
+            image={details?.image}
+            onClose={() => handleDetailsVisibility()}
+          />
+        </div>
+      )}
     </div>
   )
 }
