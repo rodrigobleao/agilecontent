@@ -17,13 +17,13 @@ html,
 body {
   margin: 0px;
   color: var(--text-color);
+  height: 100%;
 }
 
 body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
 }
 
 main {

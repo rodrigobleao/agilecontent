@@ -3,15 +3,17 @@ import './styles.css'
 import { getRandomNumber } from '@/utils'
 
 interface SearchItemSkeletonProps {
-  descriptionLines?: number
+  variant?: 'searchPage' | 'details'
 }
 
 const SearchItemSkeleton: FC<SearchItemSkeletonProps> = ({
-  descriptionLines = 1,
+  variant = 'searchPage',
 }) => {
   const urlWidth = `${getRandomNumber(25, 35)}%`
   const titleWidth = `${getRandomNumber(15, 30)}%`
   const lastDescriptionWidth = `${getRandomNumber(60, 100)}%`
+  const randomLines =
+    variant === 'searchPage' ? getRandomNumber(1, 2) : getRandomNumber(2, 4)
 
   return (
     <div className="skeleton-container">
@@ -23,7 +25,7 @@ const SearchItemSkeleton: FC<SearchItemSkeletonProps> = ({
         className="text-skeleton shimmer-skeleton"
         style={{ width: titleWidth }}
       />
-      {[...Array(descriptionLines)].map((_, index) => (
+      {[...Array(randomLines)].map((_, index) => (
         <div
           key={index}
           className="text-skeleton shimmer-skeleton"

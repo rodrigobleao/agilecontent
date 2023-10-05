@@ -12,14 +12,3 @@ export const randomDelay = () => {
     setTimeout(resolve, delay)
   })
 }
-
-export const getSkeletonRandomLines = ({
-  variant = 'searchPage',
-}: {
-  variant?: 'searchPage' | 'details'
-} = {}) => {
-  const randomLines =
-    variant === 'searchPage' ? getRandomNumber(1, 2) : getRandomNumber(2, 4)
-
-  return randomLines
-}

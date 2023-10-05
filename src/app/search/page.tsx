@@ -6,12 +6,12 @@ import { observer } from 'mobx-react'
 import { useSearchParams } from 'next/navigation'
 import { useStore } from '@/hooks/useStore'
 import { FetchedItem } from '@/types/FetchedItem'
-import { getSkeletonRandomLines, randomDelay } from '@/utils'
+import { randomDelay } from '@/utils'
 import fakerData from '@/services/faker'
 import SearchItem from '@/components/molecules/SearchItem'
 import ItemDetails from '@/components/molecules/ItemDetails'
-import SearchItemSkeleton from '@/components/molecules/SearchItem/SearchItemSkeleton'
 import NoResults from './noResults'
+import dynamic from 'next/dynamic'
 
 function Search() {
   const { loading } = useStore()
@@ -19,6 +19,11 @@ function Search() {
   const [isDetailsVisible, setIsDetailsVisible] = useState<boolean>(false)
   const [searchData, setSearchData] = useState<FetchedItem[]>([])
   const searchParam = useSearchParams().get('q')
+
+  const SearchItemSkeletonNoSSR = dynamic(
+    () => import('@/components/molecules/SearchItem/SearchItemSkeleton'),
+    { ssr: false }
+  )
 
   useEffect(() => {
     const getSearchData = async () => {
@@ -51,14 +56,11 @@ function Search() {
   }
 
   return (
-    <div className="search-content">
+    <div className="search-container">
       <div className="search-items">
         {loading.isLoading() ? (
           [...Array(8)].map((_, index) => (
-            <SearchItemSkeleton
-              key={index}
-              descriptionLines={getSkeletonRandomLines()}
-            />
+            <SearchItemSkeletonNoSSR key={index} />
           ))
         ) : searchData.length > 0 ? (
           searchData.map((data, index) => (
